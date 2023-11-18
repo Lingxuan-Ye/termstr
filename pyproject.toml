@@ -21,6 +21,5 @@ classifiers = [
 dependencies = []
 
 [project.urls]
-Documentation = "https://github.com/unknown/termstr#readme"
-Issues = "https://github.com/unknown/termstr/issues"
-Source = "https://github.com/unknown/termstr"
+Issues = "https://github.com/Lingxuan-Ye/termstr/issues"
+Source = "https://github.com/Lingxuan-Ye/termstr"
