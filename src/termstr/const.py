@@ -1,3 +1,5 @@
+from enum import StrEnum, auto
+
 ESCSEQ: dict[str, dict[str, str]] = {
     "erase": {"screen": "\u001b[2J"},
     "reset": {
@@ -44,3 +46,14 @@ ESCSEQ: dict[str, dict[str, str]] = {
         "white": "\u001b[47m",
     },
 }
+
+
+class Color(StrEnum):
+    BLACK = auto()
+    RED = auto()
+    GREEN = auto()
+    YELLOW = auto()
+    BLUE = auto()
+    MAGENTA = auto()
+    CYAN = auto()
+    WHITE = auto()

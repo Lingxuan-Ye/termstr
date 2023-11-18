@@ -1,4 +1,11 @@
 from .const import ESCSEQ
-from .term import TermString, erase_screen, reset_cursor
+from .models import Div, Span
+from .utils import erase_screen, reset_cursor
 
-__all__ = ["ESCSEQ", "TermString", "erase_screen", "reset_cursor"]
+__all__ = [
+    "ESCSEQ",
+    "Div",
+    "Span",
+    "erase_screen",
+    "reset_cursor",
+]
