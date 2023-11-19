@@ -39,18 +39,18 @@ class AbstractBaseContainer(ABC):
     padding: tuple[int, int]
 
     @abstractmethod
-    def _len(self) -> int:
+    def _data_len(self) -> int:
         """Length with no padding."""
         pass
 
     def __len__(self) -> int:
-        return self._len() + self.padding[0] + self.padding[1]
+        return self._data_len() + self.padding[0] + self.padding[1]
 
     def len(self) -> int:
         return self.__len__()
 
     def center(self, width: int) -> Self:
-        diff = width - self._len()
+        diff = width - self._data_len()
         if diff > 0:
             front = diff // 2
             back = diff - front
@@ -58,13 +58,13 @@ class AbstractBaseContainer(ABC):
         return self
 
     def ljust(self, width: int) -> Self:
-        diff = width - self._len()
+        diff = width - self._data_len()
         if diff > 0:
             self.padding = (0, diff)
         return self
 
     def rjust(self, width: int) -> Self:
-        diff = width - self._len()
+        diff = width - self._data_len()
         if diff > 0:
             self.padding = (diff, 0)
         return self
@@ -225,7 +225,7 @@ class Span(AbstractBaseContainer):
         self.foreground = foreground
         self.background = background
 
-    def _len(self) -> int:
+    def _data_len(self) -> int:
         return len(self.data)
 
     def __str__(self) -> str:
@@ -292,7 +292,7 @@ class Div(AbstractBaseContainer):
         self.foreground = foreground
         self.background = background
 
-    def _len(self) -> int:
+    def _data_len(self) -> int:
         length = 0
         for i in self.data:
             length += i.len()
@@ -340,3 +340,10 @@ class Div(AbstractBaseContainer):
     def remove(self, item) -> Self:
         self.data.remove(item)
         return self
+
+
+class TermStr:
+    data: Span | Div
+
+    def __init__(self) -> None:
+        pass
