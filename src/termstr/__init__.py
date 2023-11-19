@@ -1,6 +1,6 @@
 from .const import ESCSEQ
 from .models import Div, Span
-from .utils import erase_screen, reset_cursor
+from .utils import erase_screen, reset_cursor, tstr
 
 __all__ = [
     "ESCSEQ",
@@ -8,4 +8,5 @@ __all__ = [
     "Span",
     "erase_screen",
     "reset_cursor",
+    "tstr",
 ]
