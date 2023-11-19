@@ -187,6 +187,14 @@ class AbstractBaseContainer(ABC):
             result.appendleft(ESCSEQ["style"]["strikethrough"])
             result.append(ESCSEQ["reset"]["strikethrough"])
 
+        if self.foreground is not None:
+            result.appendleft(ESCSEQ["foreground"][self.foreground])
+            result.append(ESCSEQ["reset"]["foreground"])
+
+        if self.background is not None:
+            result.appendleft(ESCSEQ["background"][self.background])
+            result.append(ESCSEQ["reset"]["background"])
+
         result.appendleft(" " * self._padding[0])
         result.append(" " * self._padding[1])
 
