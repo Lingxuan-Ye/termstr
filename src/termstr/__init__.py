@@ -1,6 +1,6 @@
 from .const import ESCSEQ, Color
 from .models import Div, Span
-from .utils import cprint, erase_screen, error, reset_cursor, success, tstr, warn
+from .utils import cprint, erase_screen, error, reset_cursor, success, warn
 
 __all__ = [
     "ESCSEQ",
@@ -13,5 +13,4 @@ __all__ = [
     "success",
     "erase_screen",
     "reset_cursor",
-    "tstr",
 ]
