@@ -36,7 +36,7 @@ hello_world += hello + ", " + world + "!"
 print(hello_world)
 ```
 
-![Output](./assets/001.png)
+![Output](https://raw.githubusercontent.com/Lingxuan-Ye/termstr/main/assets/001.png)
 
 ## License
 
