@@ -12,14 +12,14 @@ class AbstractBaseContainer(ABC):
         style (int):
             A single-byte integer representing text styles, where
             each bit represents:
-                - Bit 7: Bold
-                - Bit 6: Dim
-                - Bit 5: Italic
-                - Bit 4: Underline
-                - Bit 3: Blink
-                - Bit 2: Reverse
-                - Bit 1: Invisible
-                - Bit 0: Strikethrough
+            - Bit 7: Bold
+            - Bit 6: Dim
+            - Bit 5: Italic
+            - Bit 4: Underline
+            - Bit 3: Blink
+            - Bit 2: Reverse
+            - Bit 1: Invisible
+            - Bit 0: Strikethrough
 
         foreground (Color | None):
             The foreground color of the text, or None for the default color.
@@ -227,7 +227,7 @@ class Span(AbstractBaseContainer):
         If `seq` is a str, it should not contain any ANSI escape sequence,
         otherwise it may not function as expected.
         """
-        if isinstance(seq, self.__class__):
+        if isinstance(seq, type(self)):
             self._data = seq._data
             self._padding = seq._padding
             self.style = style if style != 0b00000000 else seq.style
@@ -260,14 +260,15 @@ class Span(AbstractBaseContainer):
 
         If `other` is an instance (actually a reference) of `Self`,
         return will hold a reference to the `other` object.
-        For safety concern, `other` should no longer be used.
+        For safety reasons, `other` should no longer be used.
         """
+        cls = type(self)
         div = Div()
         div.append(self)
-        if isinstance(other, self.__class__):
+        if isinstance(other, cls):
             div.append(other)
             return div
-        div.append(self.__class__(other))
+        div.append(cls(other))
         return div
 
     def __radd__(self, other: Any) -> "Div":
@@ -275,8 +276,9 @@ class Span(AbstractBaseContainer):
         `Other` can be anything but a `Span` or `Div` instance.
         Please refer to `Div.__add__` for reverse adding a `Div` instance.
         """
+        cls = type(self)
         div = Div()
-        div.append(self.__class__(other))
+        div.append(cls(other))
         div.append(self)
         return div
 
@@ -331,34 +333,34 @@ class Div(AbstractBaseContainer):
 
     def append(self, item: Span) -> Self:
         """
-        `self`  will hold a reference to the `item` object.
-        For safety concern, `item` should no longer be used.
+        `self` will hold a reference to the `item` object.
+        For safety reasons, `item` should no longer be used.
         """
-        self._padding = (0, 0)
+        self._reset_padding()
         self._data.append(item)
         return self
 
     def appendleft(self, item: Span) -> Self:
         """
-        `self`  will hold a reference to the `item` object.
-        For safety concern, `item` should no longer be used.
+        `self` will hold a reference to the `item` object.
+        For safety reasons, `item` should no longer be used.
         """
-        self._padding = (0, 0)
+        self._reset_padding()
         self._data.appendleft(item)
         return self
 
     def insert(self, index, item: Span) -> Self:
-        self._padding = (0, 0)
+        self._reset_padding()
         self._data.insert(index, item)
         return self
 
     def extend(self, other: Self | Iterable[Span]) -> Self:
         """
-        `self`  will hold references to all `Span` instances in `other`.
-        For safety concern, `other` should no longer be used.
+        `self` will hold references to all `Span` instances in `other`.
+        For safety reasons, `other` should no longer be used.
         """
-        self._padding = (0, 0)
-        if isinstance(other, self.__class__):
+        self._reset_padding()
+        if isinstance(other, type(self)):
             self._data.append(Span(" " * other._padding[0]))
             self._data.extend(other._data)
             self._data.append(Span(" " * other._padding[1]))
@@ -367,26 +369,26 @@ class Div(AbstractBaseContainer):
         return self
 
     def pop(self) -> Span:
-        self._padding = (0, 0)
+        self._reset_padding()
         return self._data.pop()
 
     def popleft(self) -> Span:
-        self._padding = (0, 0)
+        self._reset_padding()
         return self._data.popleft()
 
     def remove(self, item) -> Self:
-        self._padding = (0, 0)
+        self._reset_padding()
         self._data.remove(item)
         return self
 
     def __add__(self, other: Any) -> Self:
         """
-        For safety concern, `other` should no longer be used.
+        For safety reasons, `other` should no longer be used.
         """
-        if isinstance(other, self.__class__):
+        self._reset_padding()
+        if isinstance(other, type(self)):
             self.extend(other)
             return self
-        self._padding = (0, 0)
         if isinstance(other, Span):
             self.append(other)
             return self
@@ -395,11 +397,14 @@ class Div(AbstractBaseContainer):
 
     def __radd__(self, other: Any) -> Self:
         """
-        For safety concern, `other` should no longer be used.
+        For safety reasons, `other` should no longer be used.
         """
-        self._padding = (0, 0)
+        self._reset_padding()
         if isinstance(other, Span):
             self.appendleft(other)
             return self
         self.appendleft(Span(other))
         return self
+
+    def _reset_padding(self) -> None:
+        self._padding = (0, 0)
