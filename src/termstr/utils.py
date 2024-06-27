@@ -18,6 +18,18 @@ def cprint(
     print(clabel, message, file=sys.stdout)
 
 
+def error(message: str) -> None:
+    cprint("error", message, label_color=Color.RED, to_stderr=True)
+
+
+def warn(message: str) -> None:
+    cprint("warning", message, label_color=Color.YELLOW, to_stderr=True)
+
+
+def success(message: str) -> None:
+    cprint("success", message, label_color=Color.GREEN)
+
+
 def erase_screen() -> None:
     print(ESCSEQ["erase"]["screen"], end="")
 
