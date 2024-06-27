@@ -11,6 +11,7 @@ This project originated from a submodule of [lifegame-tui](https://github.com/Li
 
 - [termstr](#termstr)
   - [Installation](#installation)
+  - [Quick Start](#quick-start)
   - [License](#license)
 
 ## Installation
@@ -18,6 +19,24 @@ This project originated from a submodule of [lifegame-tui](https://github.com/Li
 ```console
 pip install termstr
 ```
+
+## Quick Start
+
+```python
+from termstr import Color, Div, Span
+
+hello = Span("Hello").set_foreground(Color.BLUE).set_italic()
+print(hello)
+
+world = Span("World").set_foreground(Color.GREEN).set_underline()
+print(world)
+
+hello_world = Div().set_background(Color.MAGENTA).set_bold()
+hello_world += hello + ", " + world + "!"
+print(hello_world)
+```
+
+![Output](./assets/001.png)
 
 ## License
 
