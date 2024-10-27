@@ -4,7 +4,7 @@ from .const import ESCSEQ, Color
 from .models import Span
 
 
-def cprint(
+def labeled_print(
     label: str,
     message: str,
     *,
@@ -19,15 +19,15 @@ def cprint(
 
 
 def error(message: str) -> None:
-    cprint("error", message, label_color=Color.RED, to_stderr=True)
+    labeled_print("error", message, label_color=Color.RED, to_stderr=True)
 
 
 def warn(message: str) -> None:
-    cprint("warning", message, label_color=Color.YELLOW, to_stderr=True)
+    labeled_print("warning", message, label_color=Color.YELLOW, to_stderr=True)
 
 
 def success(message: str) -> None:
-    cprint("success", message, label_color=Color.GREEN)
+    labeled_print("success", message, label_color=Color.GREEN)
 
 
 def erase_screen() -> None:

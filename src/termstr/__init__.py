@@ -1,13 +1,13 @@
 from .const import ESCSEQ, Color
 from .models import Div, Span
-from .utils import cprint, erase_screen, error, reset_cursor, success, warn
+from .utils import erase_screen, error, labeled_print, reset_cursor, success, warn
 
 __all__ = [
     "ESCSEQ",
     "Color",
     "Div",
     "Span",
-    "cprint",
+    "labeled_print",
     "error",
     "warn",
     "success",
