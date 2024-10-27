@@ -1,9 +1,9 @@
 # termstr
 
-This project originated from a submodule of [lifegame-tui](https://github.com/Lingxuan-Ye/lifegame/tree/main/python), primarily used for coloring, styling, and aligning console characters.
-
 [![PyPI - Version](https://img.shields.io/pypi/v/termstr.svg)](https://pypi.org/project/termstr)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/termstr.svg)](https://pypi.org/project/termstr)
+
+`termstr` elevates terminal output with customizable color, style, and alignment options for text.
 
 -----
 
